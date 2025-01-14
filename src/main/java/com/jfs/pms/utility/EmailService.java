@@ -1,6 +1,6 @@
 package com.jfs.pms.utility;
 
-import com.jfs.pms.constants.EmailTemplates;
+import com.jfs.pms.constants.enums.EmailTemplates;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;

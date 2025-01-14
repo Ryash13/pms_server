@@ -1,7 +1,7 @@
 package com.jfs.pms.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.jfs.pms.constants.ProjectStatus;
+import com.jfs.pms.constants.enums.ProjectStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 

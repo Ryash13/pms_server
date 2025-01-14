@@ -17,4 +17,7 @@ public interface Constants {
     String PASSWORD_RESET_SUBJECT = "Password Reset Successful! Your New Login Details";
     String PASSWORD_CHANGE_SUBJECT = "Attention! Your login Credentials has been changed";
     String PASSWORD_RESET_SUCCESS = "Password Reset Successful! New Credentials has been sent to registered email";
+
+    String ISSUE_DELETE_FAILED = "Issue deletion failed! Please retry later";
+    String ISSUE_DELETE_SUCCESS = "Issue deleted successfully";
 }

@@ -1,4 +1,4 @@
-package com.jfs.pms.constants;
+package com.jfs.pms.constants.enums;
 
 public enum IssueStatus {
     TO_DO("TO DO"),

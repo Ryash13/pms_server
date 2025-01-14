@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.jfs.pms.constants.Constants.PASSWORD_RESET_SUBJECT;
-import static com.jfs.pms.constants.EmailTemplates.RESET_PASSWORD;
+import static com.jfs.pms.constants.enums.EmailTemplates.RESET_PASSWORD;
 import static org.springframework.http.HttpStatus.CONFLICT;
 
 @Service

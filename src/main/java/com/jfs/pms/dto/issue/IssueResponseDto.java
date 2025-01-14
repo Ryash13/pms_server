@@ -1,58 +1,32 @@
-package com.jfs.pms.domain;
+package com.jfs.pms.dto.issue;
 
 import com.jfs.pms.constants.enums.IssuePriority;
 import com.jfs.pms.constants.enums.IssueStatus;
-import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
-@Entity
-@Table(name = "jfs_pms_issues")
-public class Issue {
+public class IssueResponseDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false, length = 100)
     private String title;
-    @Column(nullable = false, length = 999)
     private String description;
-    @Enumerated(EnumType.STRING)
     private IssueStatus status;
-
-    @Enumerated(EnumType.STRING)
     private IssuePriority priority;
-
-    @Column(length = 999)
     private String tags;
-
     private int points;
-
-    @ManyToOne
-    @JoinColumn(name = "sprint_id", nullable = false)
-    private Sprint sprint;
-
-    @ManyToOne
-    @JoinColumn(name = "assignee_id", nullable = false)
-    private User assignee;
-
-    @ManyToOne
-    @JoinColumn(name = "assigner_id", nullable = false)
-    private User assigner;
-
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    private Map<String, String> sprint;
+    private Map<String, String> assignee;
+    private Map<String, String> assigner;
     private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column(nullable = false)
     private LocalDateTime updatedAt;
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -103,27 +77,27 @@ public class Issue {
         this.points = points;
     }
 
-    public Sprint getSprint() {
+    public Map<String, String> getSprint() {
         return sprint;
     }
 
-    public void setSprint(Sprint sprint) {
+    public void setSprint(Map<String, String> sprint) {
         this.sprint = sprint;
     }
 
-    public User getAssignee() {
+    public Map<String, String> getAssignee() {
         return assignee;
     }
 
-    public void setAssignee(User assignee) {
+    public void setAssignee(Map<String, String> assignee) {
         this.assignee = assignee;
     }
 
-    public User getAssigner() {
+    public Map<String, String> getAssigner() {
         return assigner;
     }
 
-    public void setAssigner(User assigner) {
+    public void setAssigner(Map<String, String> assigner) {
         this.assigner = assigner;
     }
 

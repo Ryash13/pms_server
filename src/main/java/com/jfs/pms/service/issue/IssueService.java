@@ -1,10 +1,13 @@
 package com.jfs.pms.service.issue;
 
-import com.jfs.pms.domain.Issue;
 import com.jfs.pms.domain.User;
+import com.jfs.pms.dto.issue.IssueRequest;
+import com.jfs.pms.dto.issue.IssueResponseDto;
 import com.jfs.pms.exception.NotFoundException;
+import com.jfs.pms.exception.UnAuthorizedException;
 import com.jfs.pms.repository.IssueRepository;
 import com.jfs.pms.repository.SprintRepository;
+import com.jfs.pms.utility.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -27,8 +30,9 @@ public class IssueService implements IIssueService {
     }
 
     @Override
-    public Issue addIssue(User loggedInUser, Long sprintId, Issue issue) {
+    public IssueResponseDto addIssue(User loggedInUser, Long sprintId, IssueRequest issueRequest) {
         try {
+            var issue = Mapper.fromIssueRequestToIssue(issueRequest);
             var sprint = sprintRepository.findById(sprintId)
                     .orElseThrow(() -> new NotFoundException("Sprint not found", NOT_FOUND));
             issue.setSprint(sprint);
@@ -41,22 +45,62 @@ public class IssueService implements IIssueService {
     }
 
     @Override
-    public Issue updateIssue(User loggedInUser, Issue issue) {
-        return null;
+    public IssueResponseDto updateIssue(User loggedInUser, IssueRequest issueRequest) {
+        try {
+            var issue = Mapper.fromIssueRequestToIssue(issueRequest);
+            if(!loggedInUser.getId().equals(issue.getAssigner().getId())) {
+                throw new UnAuthorizedException("User not authorized to update issue", HttpStatus.UNAUTHORIZED);
+            }
+            var savedIssue = issueRepository.save(issue);
+            return Mapper.fromIssueToIssueResponse(savedIssue);
+        } catch (UnAuthorizedException exception) {
+            log.error("User not authorized to update issue", exception);
+            throw exception;
+        } catch (Exception exception) {
+            log.error("Error while updating issue", exception);
+            throw exception;
+        }
     }
 
     @Override
     public boolean deleteIssue(Long issueId) {
-        return false;
+        try {
+            var issue = issueRepository.findById(issueId)
+                    .orElseThrow(() -> new NotFoundException("Issue not found", NOT_FOUND));
+            issueRepository.delete(issue);
+        } catch (NotFoundException exception) {
+            log.error("Issue not found with ID {}", issueId);
+            throw exception;
+        } catch (Exception exception) {
+            log.error("Error while deleting issue", exception);
+            throw exception;
+        }
+        return true;
     }
 
     @Override
-    public Issue getIssue(Long issueId) {
-        return null;
+    public IssueResponseDto getIssue(Long issueId) {
+        try {
+            var issue =  issueRepository.findById(issueId)
+                    .orElseThrow(() -> new NotFoundException("Issue not found", NOT_FOUND));
+            return Mapper.fromIssueToIssueResponse(issue);
+        } catch(NotFoundException exception) {
+            log.error("Issue not found with ID :: {}", issueId);
+            throw exception;
+        } catch (Exception exception) {
+            log.error("Error while fetching issue", exception);
+            throw exception;
+        }
     }
 
     @Override
-    public List<Issue> getAllIssueForSprint(Long sprintId) {
-        return List.of();
+    public List<IssueResponseDto> getAllIssueForSprint(Long sprintId) {
+        try {
+            var issues = issueRepository.findAllBySprintId(sprintId);
+            return Mapper.fromIssuesToIssueResponse(issues);
+        } catch (Exception exception) {
+            log.error("Error while fetching issues for sprint", exception);
+            throw exception;
+        }
     }
 }

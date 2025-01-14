@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import static com.jfs.pms.constants.Constants.PASSWORD_CHANGE_SUBJECT;
-import static com.jfs.pms.constants.EmailTemplates.PASSWORD_CHANGE;
+import static com.jfs.pms.constants.enums.EmailTemplates.PASSWORD_CHANGE;
 import static org.springframework.http.HttpStatus.*;
 
 @Service

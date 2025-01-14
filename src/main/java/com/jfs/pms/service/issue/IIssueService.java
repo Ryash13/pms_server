@@ -2,14 +2,16 @@ package com.jfs.pms.service.issue;
 
 import com.jfs.pms.domain.Issue;
 import com.jfs.pms.domain.User;
+import com.jfs.pms.dto.issue.IssueRequest;
+import com.jfs.pms.dto.issue.IssueResponseDto;
 
 import java.util.List;
 
 public interface IIssueService {
 
-    Issue addIssue(User loggedInUser, Long sprintId, Issue issue);
-    Issue updateIssue(User loggedInUser, Issue issue);
+    IssueResponseDto addIssue(User loggedInUser, Long sprintId, IssueRequest issue);
+    IssueResponseDto updateIssue(User loggedInUser, IssueRequest issue);
     boolean deleteIssue(Long issueId);
-    Issue getIssue(Long issueId);
-    List<Issue> getAllIssueForSprint(Long sprintId);
+    IssueResponseDto getIssue(Long issueId);
+    List<IssueResponseDto> getAllIssueForSprint(Long sprintId);
 }

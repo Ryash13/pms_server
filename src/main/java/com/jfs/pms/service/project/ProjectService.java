@@ -1,6 +1,6 @@
 package com.jfs.pms.service.project;
 
-import com.jfs.pms.constants.ProjectStatus;
+import com.jfs.pms.constants.enums.ProjectStatus;
 import com.jfs.pms.domain.User;
 import com.jfs.pms.dto.project.ProjectRequestDto;
 import com.jfs.pms.dto.project.ProjectResponse;

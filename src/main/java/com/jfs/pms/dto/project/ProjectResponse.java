@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.UUID;
 
-import com.jfs.pms.constants.ProjectStatus;
+import com.jfs.pms.constants.enums.ProjectStatus;
 
 public class ProjectResponse {
 

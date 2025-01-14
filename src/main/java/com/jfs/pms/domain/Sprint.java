@@ -1,7 +1,7 @@
 package com.jfs.pms.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.jfs.pms.constants.SprintStatus;
+import com.jfs.pms.constants.enums.SprintStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

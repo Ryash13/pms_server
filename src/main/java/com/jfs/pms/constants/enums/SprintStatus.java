@@ -1,4 +1,4 @@
-package com.jfs.pms.constants;
+package com.jfs.pms.constants.enums;
 
 public enum SprintStatus {
     BACKLOG("BACKLOG"),

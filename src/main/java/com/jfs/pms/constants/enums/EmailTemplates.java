@@ -1,4 +1,4 @@
-package com.jfs.pms.constants;
+package com.jfs.pms.constants.enums;
 
 public enum EmailTemplates {
     RESET_PASSWORD("reset_password"),
